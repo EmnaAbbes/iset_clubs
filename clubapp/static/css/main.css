@@ -1,0 +1,12 @@
+.matlab{
+    margin-top: 1000px;
+}
+@font-face {
+    font-family: 'DejaVu Sans';
+    src: url("/clubapp/static/fonts/DejaVuSans.ttf") format('truetype');
+}
+body {
+    font-weight: 200;
+    font-size: 14px;
+    font-family: 'DejaVu Sans';
+}
