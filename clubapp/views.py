@@ -30,7 +30,6 @@ from xhtml2pdf.files import pisaFileObject
 
 
 def CreatePDF(request):
-    print("aaa")
     PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
     existing_pdf = os.path.join(PROJECT_DIR, 'club.pdf')
     #pdfmetrics.registerFont(TTFont('arabic', r'C:\Users\emnaa\Fonts\DejaVuSans.ttf'))
