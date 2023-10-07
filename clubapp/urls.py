@@ -5,6 +5,7 @@ urlpatterns = [
     path('printPDF',views.CreatePDF,name="printPDF"),
     path('المطالب',views.requests,name="requests"),
     path('مطلب-حجز-قاعة',views.demandeDeSalle,name="demande-de-salle"),
+    path('مطلب_نشاط',views.demandeEvenement,name="demande-evenement"),
 
 
 

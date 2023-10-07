@@ -8,4 +8,10 @@ class DemandeDeSalleForm(ModelForm,forms.Form):
     تحديد_اليوم_و_التوقيت = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
     )
-   
+class DemandeEvenementForm(ModelForm,forms.Form):
+    class Meta :
+        model = مطلب_نشاط
+        fields = "__all__"
+    الزمان =  forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+    )

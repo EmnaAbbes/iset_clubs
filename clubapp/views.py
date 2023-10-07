@@ -15,7 +15,7 @@ from django.conf import settings
 from xhtml2pdf.files import pisaFileObject
 from django.template import loader
 
-from .forms import DemandeDeSalleForm
+from .forms import DemandeDeSalleForm,DemandeEvenementForm
 from .models import مطلب_حجز_قاعة
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -45,6 +45,23 @@ def demandeDeSalle(request):
         (value, label) for value, label in form.fields['اسم_النادي_أو_المنظمة'].choices if value]
     return render(request, 'clubapp/demande-de-salle.html', {'form': form})
 
+def demandeEvenement(request):
+    if request.method == "POST":
+        form = DemandeEvenementForm(request.POST, request.FILES)
+        if form.is_valid():
+            form_instance = form.save()
+            list = مطلب_نشاط.objects.get(id=form_instance.id)
+            current_date = timezone.now().date()
+            formatted_date = current_date.strftime('%d/%m/%Y')
+            list.الزمان = list.الزمان.strftime('%H:%M - %d/%m/%Y ')
+            context = {'list': list, 'date': formatted_date}
+            open('clubapp/templates/temp/demandeEvenement.html',"w",encoding='utf-8').write(render_to_string('htmlfiles/demandeEvenement.html',context))
+            return CreatePDF('temp/demandeEvenement.html')
+    else:
+        form = DemandeEvenementForm()
+    form.fields['اسم_النادي'].choices = [
+        (value, label) for value, label in form.fields['اسم_النادي'].choices if value]
+    return render(request, 'clubapp/demandeEvenement.html', {'form': form})
 
 def requests(request):
     return render(request, 'clubapp/requests.html')
