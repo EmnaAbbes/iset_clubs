@@ -16,7 +16,7 @@ from xhtml2pdf.files import pisaFileObject
 from django.template import loader
 
 from .forms import DemandeDeSalleForm,DemandeEvenementForm
-from .models import مطلب_حجز_قاعة
+from .models import مطلب_حجز_قاعة,مطلب_نشاط
 from django.template.loader import render_to_string
 from django.utils import timezone
 
@@ -36,7 +36,7 @@ def demandeDeSalle(request):
             list.تحديد_اليوم_و_التوقيت = list.تحديد_اليوم_و_التوقيت .strftime('%H:%M - %d/%m/%Y ')
             context = {'list': list, 'date': formatted_date}
             open('clubapp/templates/temp/demandeSalle.html', "w",encoding='utf-8').write(render_to_string('htmlfiles/demandeSalle.html',context))
-            return CreatePDF('temp/demandeSalle.html')
+            return CreatePDF('temp/demandeSalle.html','Demande de salle')
     else:
         form = DemandeDeSalleForm()
     form.fields['القاعة'].choices = [
@@ -56,18 +56,18 @@ def demandeEvenement(request):
             list.الزمان = list.الزمان.strftime('%H:%M - %d/%m/%Y ')
             context = {'list': list, 'date': formatted_date}
             open('clubapp/templates/temp/demandeEvenement.html',"w",encoding='utf-8').write(render_to_string('htmlfiles/demandeEvenement.html',context))
-            return CreatePDF('temp/demandeEvenement.html')
+            return CreatePDF('temp/demandeEvenement.html',"Demande d'evénement")
     else:
         form = DemandeEvenementForm()
-    form.fields['اسم_النادي'].choices = [
-        (value, label) for value, label in form.fields['اسم_النادي'].choices if value]
-    return render(request, 'clubapp/demandeEvenement.html', {'form': form})
+    form.fields['النادي'].choices = [
+        (value, label) for value, label in form.fields['النادي'].choices if value]
+    return render(request, 'clubapp/demande-evenement.html', {'form': form})
 
 def requests(request):
     return render(request, 'clubapp/requests.html')
 
 
-def CreatePDF(template_name):
+def CreatePDF(template_name,pdf_name):
     PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
     existing_pdf = os.path.join(PROJECT_DIR, 'club.pdf')
     # generate pdf
@@ -89,7 +89,7 @@ def CreatePDF(template_name):
     page.merge_page(new_page)
     pdf_writer.add_page(page)
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="Demande de salle.pdf"'
+    response['Content-Disposition'] = 'attachment; filename='+pdf_name+'.pdf'
 
     output = BytesIO()
     pdf_writer.write(output)

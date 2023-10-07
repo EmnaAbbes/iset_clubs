@@ -47,26 +47,22 @@ class مطلب_نشاط(models.Model):
         ('طلبة من داخل و خارج المعهد','طلبة من داخل و خارج المعهد'),
         ('كل الفئات','كل الفئات')
     )
+    TYPE = (
+        ('يوم مفتوح','يوم مفتوح'),('طلب دعم','طلب دعم'),('رحلة دراسية','رحلة دراسية'),('نشاط ثقافي','نشاط ثقافي')
+        ,('نشاط رياضي','نشاط رياضي'),('نشاط علمي','نشاط علمي'),('رحلة ترفيهية','رحلة ترفيهية')
+
+    )
     نشاط_عدد = models.CharField(max_length=255)
     تاريخ_بداية_النشاط =  models.DateField()
     تاريخ_نهاية_النشاط =  models.DateField()
     الزمان = models.TimeField()
     المكان = models.CharField(max_length=1000)
     الموضوع = models.CharField(max_length=1000)
-    رئيس_النادي= models.CharField(max_length=255)
-    اسم_النادي= models.CharField(max_length=255)
-    يوم_مفتوح = models.BooleanField(default=False)
-    طلب_دعم	 =  models.BooleanField(default=False)
-    رحلة_دراسية = models.BooleanField(default=False)
-    نشاط_ثقافي= models.BooleanField(default=False)
-    رحلة_دراسية=models.BooleanField(default=False)
-    نشاط_رياضي =models.BooleanField(default=False)                            
-    نشاط_علمي=models.BooleanField(default=False)
-    رحلة_ترفيهية =models.BooleanField(default=False)        
-    الفئة_المستهدفة = models.CharField(max_length=255, choices=CHOICES)        
+    رئيس_النادي= models.CharField(max_length=255)     
+    الفئة_المستهدفة = models.CharField(max_length=255, choices=CHOICES,default='طلبة من داخل المعهد')        
     نبذة_عن_النشاط = models.CharField(max_length=2000)   
     النادي=models.ForeignKey(بيانات_النادي, on_delete=models.CASCADE,null=True)
-
+    نوع_النشاط= models.CharField(max_length=255,choices=TYPE,default='نشاط ثقافي')
     def __str__(self):
         return self.نشاط_عدد 
 
