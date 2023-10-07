@@ -1,12 +1,12 @@
-.matlab{
-    margin-top: 1000px;
+.mybody {
+    font-weight: 400;
+    font-size: 17px;
+    direction: rtl;
+    display: flex;
+
 }
-@font-face {
-    font-family: 'DejaVu Sans';
-    src: url("/clubapp/static/fonts/DejaVuSans.ttf") format('truetype');
+.myInput {
+    direction: rtl;
+    width: 100px;
 }
-body {
-    font-weight: 200;
-    font-size: 14px;
-    font-family: 'DejaVu Sans';
-}
+.asteriskField {display: none; }
