@@ -5,7 +5,7 @@ class DemandeDeSalleForm(ModelForm,forms.Form):
     class Meta :
         model = مطلب_حجز_قاعة
         fields = "__all__"
-    تحديد_اليوم_و_التوقيت = forms.DateTimeField(
+    اليوم_و_التوقيت = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
     )
 class DemandeEvenementForm(ModelForm,forms.Form):

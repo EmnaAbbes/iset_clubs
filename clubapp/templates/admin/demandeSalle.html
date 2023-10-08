@@ -1,26 +1,11 @@
-{% extends 'base.html' %}
-{% block title %}مطلب حجز قاعة{% endblock %}
-{% block content %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>مطلب حجز قاعة</title>
+{% include 'clubapp/navbar.html' %}
+
     <style>
-        body {
+        .myBODY {
+            margin-top:100px;
             padding: 24px;
             font-family: 'Source Sans Pro', sans-serif;
-            margin: 0;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin-right: auto;
-            margin-left: auto;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; 
-            min-height: 100vh;
-            flex-wrap: wrap;
+            direction: rtl;
         }
         
         .booking-info {
@@ -33,6 +18,7 @@
         }
         
         .booking-info h3 {
+            direction: rtl;
             margin-top: 0;
         }
         
@@ -46,22 +32,22 @@
             font-weight: bold;
         }
     </style>
-</head>
-<body>
+<div class="myBODY">
+    <h3 class="text-center">مطالب القاعات</h3>
+
         {% for مطلب in list %}
         <div class="booking-info">
-            <h3>معلومات الحجز : </h3>
-            <p><label>اختر القاعة : </label> {{ مطلب.القاعة }}</p>
+            <p><label> القاعة : </label> {{ مطلب.القاعة }}</p>
             <p><label>اسم النادي أو المنظمة : </label> {{ مطلب.اسم_النادي_أو_المنظمة }}</p>
             <p><label>اسم ولقب رئيس النادي أو المنظمة :</label> {{ مطلب.اسم_و_لقب_رئيس_النادي_أو_المنظمة }}</p>
             <p><label>الموضوع: </label> {{ مطلب.الموضوع }}</p>
-            <p><label>تحديد اليوم والتوقيت : </label> {{ مطلب.تحديد_اليوم_و_التوقيت }}</p>
+            <p><label> اليوم والتوقيت : </label> {{ مطلب.اليوم_و_التوقيت }}</p>
             <p><label>ادارة النشاط الثقافي : </label> {{ مطلب.ادارة_النشاط_الثقافي }}</p>
             <p><label>اسم الاستاذ المشرف : </label> {{ مطلب.اسم_الاستاذ_المشرف }}</p>
             <p><label>رقم الهاتف : </label> {{ مطلب.رقم_الهاتف }}</p>
-            <p><label>اليوم : </label> {{ مطلب.اليوم }}</p>
+
         </div>
         {% endfor %}
-</body>
-</html>
-{% endblock %}
+</div>
+
+

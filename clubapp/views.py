@@ -16,7 +16,7 @@ from xhtml2pdf.files import pisaFileObject
 from django.template import loader
 
 from .forms import DemandeDeSalleForm,DemandeEvenementForm
-from .models import مطلب_حجز_قاعة
+from .models import مطلب_حجز_قاعة,بيانات_النادي
 from django.template.loader import render_to_string
 from django.utils import timezone
 
@@ -33,7 +33,7 @@ def demandeDeSalle(request):
             list = مطلب_حجز_قاعة.objects.get(id=form_instance.id)
             current_date = timezone.now().date()
             formatted_date = current_date.strftime('%d/%m/%Y')
-            list.تحديد_اليوم_و_التوقيت = list.تحديد_اليوم_و_التوقيت .strftime('%H:%M - %d/%m/%Y ')
+            list.اليوم_و_التوقيت = list.اليوم_و_التوقيت.strftime('%H:%M - %d/%m/%Y ')
             context = {'list': list, 'date': formatted_date}
             open('clubapp/templates/temp/demandeSalle.html', "w",encoding='utf-8').write(render_to_string('htmlfiles/demandeSalle.html',context))
             return CreatePDF('temp/demandeSalle.html')
@@ -72,7 +72,6 @@ def CreatePDF(template_name):
     existing_pdf = os.path.join(PROJECT_DIR, 'club.pdf')
     # generate pdf
     file = BytesIO()
-
     pdf_reader = PdfReader(open(existing_pdf, "rb"))
     pdf_writer = PdfWriter()
 
@@ -95,4 +94,25 @@ def CreatePDF(template_name):
     pdf_writer.write(output)
     pdf_data = output.getvalue()
     response.write(pdf_data)
-    return response
+    if not pdf.err:
+        return response
+    return None
+
+
+#page-admin
+def clubsView (request):
+    clubs_list = بيانات_النادي.objects.all()
+    return render(request, 'admin/clubs.html', {'clubs': clubs_list})
+def ListDemmandes(request,id):
+    return render(request,'admin/listDemmandes.html',{'id':id})
+def DemmSalle(request,id):
+    club = بيانات_النادي.objects.get(id=id)
+    list = مطلب_حجز_قاعة.objects.filter(اسم_النادي_أو_المنظمة=club)
+    for i in list:
+        i.اليوم_و_التوقيت = i.اليوم_و_التوقيت.strftime('%d/%m/%Y - %H:%M ')
+    return render(request,'admin/demandeSalle.html',{'list':list})   
+def DemmEven(request,id):
+    club = بيانات_النادي.objects.get(id=id)
+    list = مطلب_نشاط.objects.filter(اسم_النادي=club)
+    return render(request,'.html',{'list':list})
+    

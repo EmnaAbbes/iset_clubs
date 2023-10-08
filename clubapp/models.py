@@ -34,7 +34,7 @@ class مطلب_حجز_قاعة(models.Model):
     اسم_النادي_أو_المنظمة = models.ForeignKey(بيانات_النادي, on_delete=models.CASCADE,null=True)
     اسم_و_لقب_رئيس_النادي_أو_المنظمة = models.CharField(max_length=255)
     الموضوع = models.CharField(max_length=1000)
-    تحديد_اليوم_و_التوقيت = models.DateTimeField()
+    اليوم_و_التوقيت = models.DateTimeField()
     ادارة_النشاط_الثقافي = models.CharField(max_length=255)
     اسم_الاستاذ_المشرف = models.CharField(max_length=255)
     رقم_الهاتف = models.CharField(max_length=8)

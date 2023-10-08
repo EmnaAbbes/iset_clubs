@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}مطلب حجز قاعة{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>مطلب حجز قاعة</title>
+    <style>
+        body {
+            padding: 24px;
+            font-family: 'Source Sans Pro', sans-serif;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin-right: auto;
+            margin-left: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align items to the top */
+            min-height: 100vh;
+            flex-wrap: wrap; /* Allow wrapping of booking-info divs */
+        }
+        
+        .booking-info {
+            width: 50%; /* Display two tables per row */
+            box-sizing: border-box; /* Include padding and border in width */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        
+        .booking-info h3 {
+            margin-top: 0;
+        }
+        
+        .booking-info p {
+            margin: 0;
+            padding: 5px 0;
+            direction: rtl;
+        }
+        
+        .booking-info label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    {% for مطلب in list %}
+    <div class="booking-info">
+        <h3>معلومات الحجز:</h3>
+        <p><label>اختر القاعة:</label> {{ مطلب.القاعة }}</p>
+        <p><label>اسم النادي أو المنظمة:</label> {{ مطلب.النادي.اسم_النادي }}</p>
+        <p><label>اسم ولقب رئيس النادي أو المنظمة:</label> {{ مطلب.رئيس_النادي }}</p>
+        <p><label>الموضوع:</label> {{ مطلب.الموضوع }}</p>
+        <p><label>تحديد اليوم والتوقيت:</label> {{ مطلب.الزمان }}</p>
+        <p><label>ادارة النشاط الثقافي:</label> {{ مطلب.نشاط_ثقافي }}</p>
+        <p><label>اسم الاستاذ المشرف:</label> {{ مطلب.اسم_الاستاذ_المشرف }}</p>
+        <p><label>رقم الهاتف:</label> {{ مطلب.رقم_الهاتف }}</p>
+        <p><label>اليوم:</label> {{ مطلب.تاريخ_بداية_النشاط }}</p>
+    </div>
+    {% endfor %}
+    
+    
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% include 'clubapp/navbar.html' %}
+{% block content %}
+<div class="row" style="margin-top:100px;">
+ <div class="col col-lg-12 m-3 text-center">
+      <div><a class="btn btn-danger mb-4" href="{% url 'disDemmSalle' id=id %}">مطالب حجز القاعات</a></div>
+      <div><a class="btn btn-danger mb-4" href="{% url 'disDemmEven' id=id %}">مطالب الأنشطة</a></div> 
+</div>
+</div>
+{% endblock %}
