@@ -12,6 +12,13 @@ class DemandeEvenementForm(ModelForm,forms.Form):
     class Meta :
         model = مطلب_نشاط
         fields = "__all__"
-    الزمان =  forms.DateTimeField(
-        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+    الزمان = forms.TimeField(
+        widget=forms.TimeInput(attrs={'type': 'time'}),
     )
+    تاريخ_بداية_النشاط = forms.DateField(
+        widget=forms.DateTimeInput(attrs={'type': 'date'}),
+    )
+    تاريخ_نهاية_النشاط = forms.DateField(
+        widget=forms.TimeInput(attrs={'type': 'date'}),
+    )
+    
